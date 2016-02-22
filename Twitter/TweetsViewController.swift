@@ -49,6 +49,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         insets.bottom += InfiniteScrollActivityView.defaultHeight;
         homelineTabelView.contentInset = insets
         
+//        let gesture = UIGestureRecognizer
+        
         TwitterClient.sharedInstance.homeTimelineWithParam(["count":"\(newTweetOffset)"]) { (tweets, error) -> () in
             self.tweets = tweets
             self.homelineTabelView.reloadData()
@@ -63,7 +65,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func onLogout(sender: AnyObject) {
-        User.currentUser?.logout()
+        //User.currentUser?.logout()
+        let alert = UIAlertController(title: "Are you sure to Logout?", message: "", preferredStyle: UIAlertControllerStyle.Alert)
+        let logoutAction = UIAlertAction(title: "Logout", style: UIAlertActionStyle.Default) { (UIAlertAction) -> Void in
+            User.currentUser?.logout()
+        }
+//        let cancelAction = UIAlertAction(title: "Cancel", style: .Default) { (UIAlertAction) -> Void in
+//            print("cancel")
+//        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+        alert.addAction(logoutAction)
+        alert.addAction(cancelAction)
+        presentViewController(alert, animated: true, completion: nil)
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -95,6 +108,10 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
         cell.profileImgeView.setImageWithURL(NSURL(string: user!.profileImageUrl!)!)
+        let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("imageTapped:"))
+        cell.profileImgeView.userInteractionEnabled = true
+        cell.profileImgeView.addGestureRecognizer(tapGestureRecognizer)
+
         cell.userNameLabel.text = user?.screenName
         cell.userIdLabel.text = "@\((user?.name)!)"
         cell.contentLabel.text = tweets![indexPath.row].text
@@ -108,7 +125,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 //                
 //            }
         } else {
-//            cell.mediaImage.hidden = true
+            cell.mediaImage.hidden = true
 //            let imageHeight = cell.mediaImage.frame.height
 //            let cellOriginalFrame = cell.frame
 //            cell.frame = CGRectMake(cellOriginalFrame.origin.x, cellOriginalFrame.origin.y, cellOriginalFrame.width, cellOriginalFrame.height - imageHeight)
@@ -131,6 +148,28 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let detailView = self.storyboard?.instantiateViewControllerWithIdentifier("TweetDetailViewController") as! TweetDetailViewController
+        
+        detailView.tweet = tweets![indexPath.row]
+        self.navigationController?.pushViewController(detailView, animated: true)
+    }
+    
+    func imageTapped(sender: AnyObject)
+    {
+
+        let cell = sender.view!!.superview!.superview as! TweetTableViewCell
+        let index = homelineTabelView.indexPathForCell(cell)!.row
+        print("image pressed and username is \(index)")
+        
+        let detailView = self.storyboard?.instantiateViewControllerWithIdentifier("MeViewController") as! MeViewController
+        
+        detailView.user = tweets![index].user
+        self.navigationController?.pushViewController(detailView, animated: true)
+    }
+    
     
     func onRefresh() {
         delay(2, closure: {
@@ -249,7 +288,18 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    
+    
 
+    @IBAction func unwindToVC(segue:UIStoryboardSegue) {
+        if(segue.sourceViewController.isKindOfClass(PostTweetViewController))
+        {
+//            let postVC = segue.sourceViewController as! PostTweetViewController
+            print("unwind-=-=-=-=-=-=")
+            tweets?.insert(newTweetCallback!, atIndex: 0)
+            self.homelineTabelView.reloadData()
+        }
+    }
     
 
     /*

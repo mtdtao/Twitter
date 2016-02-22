@@ -20,14 +20,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         
+        let twitterColor = UIColor(red: 85/255, green: 172/255, blue: 238/255, alpha: 1)
+
+        self.window?.tintColor = twitterColor
+        
+        
         if User.currentUser != nil {
             print("current user detected. Name is: \(User.currentUser?.name)")
             
-            let tweetNaviController = storyboard.instantiateViewControllerWithIdentifier("TweetNavigationController") as! UINavigationController
-//            let tweetViewController = tweetNaviController.topViewController as! TweetsViewController
-            
-            //var vc = storyboard.instantiateViewControllerWithIdentifier("TweetsViewController") as UIViewController
-            window?.rootViewController = tweetNaviController
+            //let tweetNaviController = storyboard.instantiateViewControllerWithIdentifier("TweetNavigationController") as! UINavigationController
+            let baseTabBarController = storyboard.instantiateViewControllerWithIdentifier("BaseTabBarController") as! UITabBarController
+            window?.rootViewController = baseTabBarController
         }
         
         return true

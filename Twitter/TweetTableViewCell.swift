@@ -34,31 +34,15 @@ class TweetTableViewCell: UITableViewCell {
         retweetButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         replyButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
         likeButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-//        testButton.imageView?.contentMode = UIViewContentMode.ScaleAspectFit
-        //mediaImage.contentMode = UIViewContentMode.ScaleAspectFit
-        //mediaImage.sizeToFit()
-        let a = mediaImage.frame.size.width
-        let b = mediaImage.bounds.size.width
-        let c = mediaImage.image?.size.width
-        let d = mediaImage.frame.width
-
-        print("this is the width \(a) and \(b) and \(c) and \(d)")
-//        mediaImage.frame.size.height = 295
-        //imageHeightConstraint.constant = a
-        
 
         
         mediaImage.layer.cornerRadius = 5
         mediaImage.layer.masksToBounds = true
         
-//        if mediaImage.image == nil {
-//            mediaImage.hidden = true
-//        } 
-        
+
         profileImgeView.layer.cornerRadius = 3
         profileImgeView.layer.masksToBounds = true
         
-
         
     }
 
@@ -68,7 +52,7 @@ class TweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    
+
     
 //    @IBAction func retweetPressed(sender: AnyObject) {
 //        TwitterClient.sharedInstance.retweetWithId(id!, params: nil) { (tweets, error) -> () in

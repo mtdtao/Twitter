@@ -24,6 +24,31 @@ class TwitterClient: BDBOAuth1SessionManager {
         return Static.instance
     }
     
+    func postNewTweet(params: NSDictionary?, completion: (tweets: Tweet?, error: NSError?) -> ()) {
+        POST("1.1/statuses/update.json", parameters: params, success: { (operation:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            print("successful post tweet in client!================")
+            var tweeta = Tweet(dictionary: response as! NSDictionary)
+            completion(tweets: tweeta, error: nil)
+            
+            }) { (operation:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("fail to post tweet in client=======")
+        }
+        
+        
+    }
+    
+    func showUserInfo(params: NSDictionary?, completion: (user: User?, error: NSError?) -> ()){
+        GET("1.1/users/show.json", parameters: params, success: { (operation:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            //print(response)
+            
+            completion(user: User(dictionary: response as! NSDictionary), error: nil)
+            
+            }, failure: { (operation:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("error getting home time line")
+                completion(user: nil, error: error)
+        })
+    }
+    
     func favoriteWithId(params: NSDictionary?, unfavrorite: Bool, completion: (tweets: Tweet?, error: NSError?) -> ()) {
         var unfavoriteUrlAdd = "create"
         if unfavrorite == true {
@@ -59,6 +84,23 @@ class TwitterClient: BDBOAuth1SessionManager {
         }
         
         
+    }
+    
+    func userTimelineWithParam(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()){
+        GET("1.1/statuses/user_timeline.json", parameters: params, success: { (operation:NSURLSessionDataTask, response:AnyObject?) -> Void in
+            //            print(response)
+            var tweets = Tweet.tweetsWithArray(response as! [NSDictionary])
+            
+            for tweet in tweets {
+                //                print("text: \(tweet.text), created at: \(tweet.createdAt)")
+                
+            }
+            completion(tweets: tweets, error: nil)
+            
+            }, failure: { (operation:NSURLSessionDataTask?, error:NSError) -> Void in
+                print("error getting home time line")
+                completion(tweets: nil, error: error)
+        })
     }
     
     func homeTimelineWithParam(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()){
