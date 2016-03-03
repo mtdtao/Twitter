@@ -18,6 +18,7 @@ class PostTweetViewController: UIViewController {
     @IBOutlet weak var sendStatusView: UIView!
     @IBOutlet weak var sendStatusToBottomConstraint: NSLayoutConstraint!
     
+    var replyTweetId:String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,11 +48,31 @@ class PostTweetViewController: UIViewController {
             var alert = UIAlertController(title: "Please enter less than 140 charactars", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
             self.presentViewController(alert, animated: true, completion: nil)
         } else {
-            TwitterClient.sharedInstance.postNewTweet(["status":"\(newTweetContent.text!)"], completion: { (tweets, error) -> () in
-                newTweetCallback = tweets
-                self.performSegueWithIdentifier("unwindToHomeLineVC", sender: self)
-                //                self.dismissViewControllerAnimated(true, completion: nil)
-            })
+            if replyTweetId == nil {
+                print("new tweet start")
+                TwitterClient.sharedInstance.postNewTweet(["status":"\(newTweetContent.text!)"], completion: { (tweets, error) -> () in
+                    newTweetCallback = tweets
+                    self.performSegueWithIdentifier("unwindToHomeLineVC", sender: self)
+                    //                self.dismissViewControllerAnimated(true, completion: nil)
+                })
+            } else {
+                print("new reply start")
+
+                TwitterClient.sharedInstance.postNewTweet(["status":"\(newTweetContent.text!)", "in_reply_to_status_id":"\(replyTweetId!)"], completion: { (tweets, error) -> () in
+                    newTweetCallback = tweets
+//                    self.dismissViewControllerAnimated(true, completion: nil)
+                    var alert = UIAlertController(title: "successful reply", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+//                    self.presentViewController(alert, animated: true, completion: nil)
+//                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (UIAlertAction) -> Void in
+                        self.navigationController?.popViewControllerAnimated(true)
+
+                    }))
+                    self.presentViewController(alert, animated: true, completion: { () -> Void in
+                    })
+                    
+                })
+            }
         }
     }
     

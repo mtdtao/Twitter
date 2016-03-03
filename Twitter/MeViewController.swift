@@ -51,7 +51,7 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         print("user screen name is \((user!.screenName)!)")
         
         TwitterClient.sharedInstance.showUserInfo(["screen_name":"\((user!.screenName)!)"]) { (user, error) -> () in
-            User.currentUser = user
+            self.user = user
             print("name is \(user!.screenName), \(user!.followingCount)")
             self.userTimeLineTableView.reloadData()
         }

@@ -40,7 +40,7 @@
         <!--Post Tweet View Controller-->
         <scene sceneID="kAb-fQ-oQ6">
             <objects>
-                <viewController id="Tkv-qJ-Yy8" customClass="PostTweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PostTweetViewController" id="Tkv-qJ-Yy8" customClass="PostTweetViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mbp-gB-BWD"/>
                         <viewControllerLayoutGuide type="bottom" id="6ns-t7-erw"/>
@@ -153,7 +153,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="426" id="yzW-Tq-HRY" customClass="TweetTableViewCell" customModule="Twitter" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TweetCell" rowHeight="426" id="yzW-Tq-HRY" customClass="TweetTableViewCell" customModule="Twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="426"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yzW-Tq-HRY" id="51A-5Z-Ltu">
@@ -205,6 +205,9 @@
                                                         <constraint firstAttribute="height" constant="16" id="qhN-5t-GJ3"/>
                                                     </constraints>
                                                     <state key="normal" image="reply-action_0"/>
+                                                    <connections>
+                                                        <action selector="replyPressed:" destination="T5p-3Q-RAg" eventType="touchUpInside" id="CoU-ns-Kr5"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5EI-sN-dHK">
                                                     <rect key="frame" x="147" y="401" width="75" height="16"/>
@@ -358,7 +361,7 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="358" id="Og2-8I-mEV" customClass="TweetDetailTableViewCell" customModule="Twitter" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="detailCell" rowHeight="358" id="Og2-8I-mEV" customClass="TweetDetailTableViewCell" customModule="Twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="92" width="600" height="358"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Og2-8I-mEV" id="QOT-FC-QLv">
@@ -411,26 +414,47 @@
                                                         <constraint firstAttribute="height" constant="1" id="j8P-dm-0R8"/>
                                                     </constraints>
                                                 </view>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7og-8d-rjt">
-                                                    <rect key="frame" x="10" y="303" width="46" height="38.5"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7og-8d-rjt">
+                                                    <rect key="frame" x="10" y="303" width="150" height="38.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="46" id="v3T-fW-tNb"/>
+                                                        <constraint firstAttribute="width" constant="150" id="v3T-fW-tNb"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="reply-action_0"/>
+                                                    <state key="normal" image="reply-action_0">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="replyPressed:" destination="tIR-kg-O79" eventType="touchUpInside" id="Ul5-hX-hTr"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdC-Qb-F61">
-                                                    <rect key="frame" x="104" y="310.5" width="46" height="24"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YdC-Qb-F61">
+                                                    <rect key="frame" x="160" y="310.5" width="150" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="46" id="BLW-Tc-RgV"/>
+                                                        <constraint firstAttribute="width" constant="150" id="BLW-Tc-RgV"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="retweet-action"/>
+                                                    <state key="normal" title="Button" image="retweet-action">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="retweet-action-on">
+                                                        <color key="titleColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="retweetPressed:" destination="tIR-kg-O79" eventType="touchUpInside" id="FNL-Xg-gYR"/>
+                                                    </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbj-DU-5Hj">
-                                                    <rect key="frame" x="205" y="310.5" width="46" height="24"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fbj-DU-5Hj">
+                                                    <rect key="frame" x="310" y="310.5" width="150" height="24"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="46" id="hnK-VY-D0o"/>
+                                                        <constraint firstAttribute="width" constant="150" id="hnK-VY-D0o"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="like-action"/>
+                                                    <state key="normal" title="Button" image="like-action">
+                                                        <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="like-action-on">
+                                                        <color key="titleColor" red="0.33333333329999998" green="0.67450980390000004" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="likePressed:" destination="tIR-kg-O79" eventType="touchUpInside" id="n0N-S3-Nq6"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -443,7 +467,7 @@
                                                 <constraint firstItem="4I5-ky-7eX" firstAttribute="top" secondItem="xfZ-Jx-N18" secondAttribute="bottom" constant="8" id="CAO-LT-cPA"/>
                                                 <constraint firstItem="VkX-X3-DG7" firstAttribute="leading" secondItem="QOT-FC-QLv" secondAttribute="leadingMargin" id="DBp-DL-b3h"/>
                                                 <constraint firstItem="4I5-ky-7eX" firstAttribute="trailing" secondItem="QOT-FC-QLv" secondAttribute="trailingMargin" id="FFl-VN-vic"/>
-                                                <constraint firstItem="Fbj-DU-5Hj" firstAttribute="leading" secondItem="YdC-Qb-F61" secondAttribute="trailing" constant="55" id="Gx9-4L-ryF"/>
+                                                <constraint firstItem="Fbj-DU-5Hj" firstAttribute="leading" secondItem="YdC-Qb-F61" secondAttribute="trailing" id="Gx9-4L-ryF"/>
                                                 <constraint firstItem="7og-8d-rjt" firstAttribute="top" secondItem="vpe-yG-c1z" secondAttribute="bottom" constant="8" id="LGk-k0-AT5"/>
                                                 <constraint firstItem="cNs-VS-BPS" firstAttribute="top" secondItem="VkX-X3-DG7" secondAttribute="bottom" constant="8" id="Oqs-zU-Hz5"/>
                                                 <constraint firstItem="7og-8d-rjt" firstAttribute="leading" secondItem="QOT-FC-QLv" secondAttribute="leadingMargin" constant="2" id="QiB-mF-kPc"/>
@@ -459,14 +483,17 @@
                                                 <constraint firstItem="vpe-yG-c1z" firstAttribute="top" secondItem="ubc-0f-u2x" secondAttribute="bottom" constant="8" id="oEZ-qs-zZi"/>
                                                 <constraint firstItem="vpe-yG-c1z" firstAttribute="trailing" secondItem="QOT-FC-QLv" secondAttribute="trailingMargin" id="q7r-Nj-6XQ"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="ubc-0f-u2x" secondAttribute="trailing" id="r42-v8-Ild"/>
-                                                <constraint firstItem="YdC-Qb-F61" firstAttribute="leading" secondItem="7og-8d-rjt" secondAttribute="trailing" constant="48" id="rT3-gD-FsE"/>
+                                                <constraint firstItem="YdC-Qb-F61" firstAttribute="leading" secondItem="7og-8d-rjt" secondAttribute="trailing" id="rT3-gD-FsE"/>
                                                 <constraint firstItem="YdC-Qb-F61" firstAttribute="centerY" secondItem="7og-8d-rjt" secondAttribute="centerY" id="tk3-zq-avq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="cNs-VS-BPS" id="KWt-TW-4Fb"/>
+                                            <outlet property="likeBtn" destination="Fbj-DU-5Hj" id="na6-Mb-mBa"/>
                                             <outlet property="mediaImageView" destination="xfZ-Jx-N18" id="MTj-42-2Gx"/>
                                             <outlet property="profileImageView" destination="VkX-X3-DG7" id="jNF-Vu-CHd"/>
+                                            <outlet property="replyBtn" destination="7og-8d-rjt" id="ai3-vT-DWT"/>
+                                            <outlet property="retweetBtn" destination="YdC-Qb-F61" id="0IO-Zs-KbJ"/>
                                             <outlet property="retweetlikeCountLabel" destination="ubc-0f-u2x" id="7se-Gt-B3V"/>
                                             <outlet property="timeLabel" destination="4I5-ky-7eX" id="koC-fj-QyP"/>
                                         </connections>
@@ -754,8 +781,8 @@
                                                     </state>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="gGy-7s-Wji"/>
                                                             <exclude reference="Get-6a-aua"/>
+                                                            <exclude reference="gGy-7s-Wji"/>
                                                         </mask>
                                                     </variation>
                                                     <connections>
@@ -777,8 +804,8 @@
                                                     </state>
                                                     <variation key="default">
                                                         <mask key="constraints">
-                                                            <exclude reference="P3b-HY-b6a"/>
                                                             <exclude reference="HJv-z5-hcG"/>
+                                                            <exclude reference="P3b-HY-b6a"/>
                                                         </mask>
                                                     </variation>
                                                     <connections>

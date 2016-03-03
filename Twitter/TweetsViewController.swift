@@ -288,6 +288,16 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
+    @IBAction func replyPressed(sender: UIButton) {
+        let cell = sender.superview!.superview as! TweetTableViewCell
+        let index = homelineTabelView.indexPathForCell(cell)!.row
+        let detailView = self.storyboard?.instantiateViewControllerWithIdentifier("PostTweetViewController") as! PostTweetViewController
+        
+        detailView.replyTweetId = tweets![index].id
+        self.navigationController?.pushViewController(detailView, animated: true)
+    }
+    
+    
     
     
 

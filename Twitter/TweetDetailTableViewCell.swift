@@ -19,6 +19,11 @@ class TweetDetailTableViewCell: UITableViewCell {
     @IBOutlet weak var retweetCntLable: UILabel!
     
     @IBOutlet weak var retweetlikeCountLabel: UILabel!
+    
+    @IBOutlet weak var replyBtn: UIButton!
+    @IBOutlet weak var retweetBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

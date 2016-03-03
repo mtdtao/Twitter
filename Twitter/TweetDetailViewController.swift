@@ -42,6 +42,25 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
         formatter.dateFormat = "MM/d/yy, HH/mm"
         cell.timeLabel.text = formatter.stringFromDate((tweet?.createdAt)!)
         
+        let a = tweet!.favouritesCount
+        let b = tweet!.retweetedCount
+        cell.likeBtn.setTitle(a, forState: .Normal)
+        cell.likeBtn.setTitle(a, forState: .Selected)
+        cell.retweetBtn.setTitle(b, forState: .Normal)
+        cell.retweetBtn.setTitle(b, forState: .Selected)
+        
+        if tweet!.retweeted == true {
+            cell.retweetBtn.selected = true
+        } else {
+            cell.retweetBtn.selected = false
+        }
+        
+        if tweet!.favorited == true {
+            cell.retweetBtn.selected = true
+        } else {
+            cell.retweetBtn.selected = false
+        }
+        
         
         return cell
     }
@@ -49,6 +68,74 @@ class TweetDetailViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
+    
+    
+    @IBAction func retweetPressed(sender: UIButton) {
+        if tweet!.retweeted == false {
+            
+            tweet!.retweeted = true
+            sender.selected = true
+            TwitterClient.sharedInstance.retweetWithId(tweet!.id!,unretweet: false, params: ["id":"\(tweet!.id)"]) { (tweets, error) -> () in
+                print("success retweet")
+                
+                sender.setTitle(tweets?.retweetedCount, forState: .Normal)
+                sender.setTitle(tweets?.retweetedCount, forState: .Selected)
+                
+                print(tweets)
+            }
+        } else {
+            tweet!.retweeted = false
+            sender.selected = false
+            TwitterClient.sharedInstance.retweetWithId(tweet!.id!,unretweet: true, params: ["id":"\(tweet!.id)"]) { (tweets, error) -> () in
+                print("success unretweet")
+                
+                sender.setTitle(tweets?.retweetedCount, forState: .Normal)
+                sender.setTitle(tweets?.retweetedCount, forState: .Selected)
+                
+                print(tweets?.retweeted)
+            }
+            print("aha")
+        }
+    }
+    
+    @IBAction func likePressed(sender: UIButton) {
+        if tweet!.favorited == false {
+            
+            tweet!.favorited = true
+            sender.selected = true
+            TwitterClient.sharedInstance.favoriteWithId(["id":"\(tweet!.id!)"], unfavrorite: false) { (tweets, error) -> () in
+                print("success retweet")
+                
+                sender.setTitle(tweets?.favouritesCount, forState: .Normal)
+                sender.setTitle(tweets?.favouritesCount, forState: .Selected)
+                
+                print(tweets)
+            }
+        } else {
+            tweet!.favorited = false
+            sender.selected = false
+            TwitterClient.sharedInstance.favoriteWithId(["id":"\(tweet!.id!)"], unfavrorite: true) { (tweets, error) -> () in
+                print("success unretweet")
+                
+                sender.setTitle(tweets?.favouritesCount, forState: .Normal)
+                sender.setTitle(tweets?.favouritesCount, forState: .Selected)
+                
+                
+                print(tweets?.favorited)
+            }
+            print("aha")
+        }
+
+    }
+    
+    @IBAction func replyPressed(sender: UIButton) {
+        let detailView = self.storyboard?.instantiateViewControllerWithIdentifier("PostTweetViewController") as! PostTweetViewController
+        
+        detailView.replyTweetId = tweet!.id
+        self.navigationController?.pushViewController(detailView, animated: true)
+    }
+    
+    
 
     /*
     // MARK: - Navigation
